@@ -1,4 +1,4 @@
-def ongali(babbling):
+def solution(babbling):
     able = ["aya", "ye", "woo", "ma"]
     answer = 0
     for b in babbling:
@@ -11,13 +11,13 @@ def ongali(babbling):
     return answer
 
 if __name__ == "__main__":
-    res = ongali(babbling=["aya", "yee", "u", "maa", "wyeoo"])
+    res = solution(babbling=["aya", "yee", "u", "maa", "wyeoo"])
     if res == 1:
         print("Correct")
     else:
         print("Wrong")
 
-    res = ongali(babbling=["ayaye", "uuuma", "ye", "yemawoo", "ayaa"])
+    res = solution(babbling=["ayaye", "uuuma", "ye", "yemawoo", "ayaa"])
     if res == 3:
         print("Correct")
     else:
