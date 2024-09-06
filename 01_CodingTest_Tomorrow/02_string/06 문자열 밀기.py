@@ -31,6 +31,30 @@ A   	B	    result
 "abc"는 밀지 않아도 "abc"이므로 0을 반환합니다.
 """
 
+from collections import deque
+
 def solution(A, B):
-    answer = 0
-    return answer
+    Alist = deque(A) # 데크
+    Blist = deque(B) # 데크
+    for i in range(len(Alist)):
+        if Alist == Blist: # A와 B가 같아지면 이동 횟수 i 리턴
+            return i
+        Alist.rotate(1) # 오른쪽으로 1칸 이동
+    return -1 # 불가능한 경우 -1 리턴
+
+if __name__ == '__main__':
+    quiz_dict_list = [
+        {"A": "hello", "B": "ohell", "result": 1},
+        {"A": "apple", "B": "elppa", "result": -1},
+        {"A": "atat", "B": "tata", "result": 1},
+        {"A": "abc", "B": "abc", "result": 0},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(A=quiz_dict['A'], B=quiz_dict['B'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+
+            print()

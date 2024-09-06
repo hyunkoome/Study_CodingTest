@@ -32,6 +32,9 @@ if __name__ == "__main__":
     for char in s:
         print(f'string `{char}`: {"숫자" if char.isnumeric() else "char"}')
 
+    # 문자열 뒤집기
+    print(s[::-1])
+
 
 
 

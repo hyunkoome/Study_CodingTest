@@ -21,6 +21,35 @@ my_string	    num1	num2	result
 "I love you"의 3번째 인덱스 "o"와 " "(공백)을 바꾸면 "I l veoyou"입니다.
 """
 
+
 def solution(my_string, num1, num2):
-    answer = ''
+    # answer = ''
+
+    # 문자열을 리스트로 변환
+    my_list = list(my_string)
+
+    # answer = my_string
+    num1_str = my_list[num1]
+    my_list[num1] = my_list[num2]
+    my_list[num2] = num1_str
+
+    # 다시 문자열로 변환
+    answer = ''.join(my_list)
+
     return answer
+
+
+if __name__ == '__main__':
+    quiz_dict_list = [
+        {"my_string": "hello", "num1": 1, "num2": 2, "result": "hlelo"},
+        {"my_string": "I love you", "num1": 3, "num2": 6, "result": "I l veoyou"},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(my_string=quiz_dict['my_string'], num1=quiz_dict['num1'], num2=quiz_dict['num2'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+
+            print()
