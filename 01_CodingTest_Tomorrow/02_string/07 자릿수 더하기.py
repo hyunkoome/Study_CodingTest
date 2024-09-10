@@ -20,5 +20,20 @@ n   	result
 """
 
 def solution(n):
-    answer = 0
-    return answer
+    # n 이 int 일수도 있어서, str(n) 해줘야 함
+    return sum(list(map(int, str(n))))
+
+if __name__ == '__main__':
+    quiz_dict_list = [
+        {"n": "1234", "result": 10},
+        {"n": "930211", "result": 16},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(n=quiz_dict['n'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+
+            print()
