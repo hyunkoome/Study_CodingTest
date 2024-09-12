@@ -46,6 +46,10 @@ def solution(my_str, n):
         answer.append(sub_str)
     return answer
 
+def solution2(my_str, n):
+    answer = [my_str[i:i+n] for i in range(0, len(my_str), n)]
+    return answer
+
 
 if __name__ == "__main__":
     quiz_dict_list = [
@@ -54,7 +58,8 @@ if __name__ == "__main__":
     ]
 
     for quiz_dict in quiz_dict_list:
-        res = solution(my_str=quiz_dict['my_str'], n=quiz_dict['n'])
+        # res = solution(my_str=quiz_dict['my_str'], n=quiz_dict['n'])
+        res = solution2(my_str=quiz_dict['my_str'], n=quiz_dict['n'])
         if res == quiz_dict["result"]:
             print("Correct")
         else:
