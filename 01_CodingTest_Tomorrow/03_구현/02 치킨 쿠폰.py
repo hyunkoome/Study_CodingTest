@@ -32,5 +32,37 @@ chicken	result
 """
 
 def solution(chicken):
-    answer = -1
-    return answer
+    cupon = chicken
+    sum_service_chicken = 0
+
+    while True:
+        service_chicken = cupon // 10
+        cupon -= service_chicken * 10
+        cupon += service_chicken
+        sum_service_chicken += service_chicken
+
+        print(f'chicken {chicken}, cupon {cupon}, service_chicken {service_chicken}, sum_service_chicken {sum_service_chicken}')
+
+        if cupon < 10:  # 10장이 안되므로 그냥 종료
+            print(
+                f'chicken {chicken}, cupon {cupon}, service_chicken {service_chicken}, sum_service_chicken {sum_service_chicken}')
+            break
+
+    return sum_service_chicken
+
+
+if __name__ == '__main__':
+    quiz_dict_list = [
+        {"chicken": 100, "result": 11},
+        {"chicken": 1081, "result": 120},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(chicken=quiz_dict['chicken'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solutuin", quiz_dict['result'])
+        print("my Solutuin", res)
+        print()

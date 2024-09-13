@@ -22,5 +22,25 @@ order	result
 """
 
 def solution(order):
+    valid_number_str = ['3', '6', '9']
     answer = 0
+    for num_str in str(order):
+        if num_str in valid_number_str:
+            answer += 1
     return answer
+
+if __name__ == '__main__':
+    quiz_dict_list = [
+        {"order": 3, "result": 1},
+        {"order": 29423, "result": 2},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(order=quiz_dict['order'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solutuin", quiz_dict['result'])
+        print("my Solutuin", res)
+        print()

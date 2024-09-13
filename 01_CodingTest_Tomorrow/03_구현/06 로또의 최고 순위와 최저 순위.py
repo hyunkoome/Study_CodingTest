@@ -11,8 +11,10 @@
 4	3개 번호가 일치
 5	2개 번호가 일치
 6(낙첨)	그 외
-로또를 구매한 민우는 당첨 번호 발표일을 학수고대하고 있었습니다. 하지만, 민우의 동생이 로또에 낙서를 하여, 일부 번호를 알아볼 수 없게 되었습니다. 당첨 번호 발표 후, 민우는 자신이 구매했던 로또로 당첨이 가능했던 최고 순위와 최저 순위를 알아보고 싶어 졌습니다.
-알아볼 수 없는 번호를 0으로 표기하기로 하고, 민우가 구매한 로또 번호 6개가 44, 1, 0, 0, 31 25라고 가정해보겠습니다. 당첨 번호 6개가 31, 10, 45, 1, 6, 19라면, 당첨 가능한 최고 순위와 최저 순위의 한 예는 아래와 같습니다.
+로또를 구매한 민우는 당첨 번호 발표일을 학수고대하고 있었습니다. 하지만, 민우의 동생이 로또에 낙서를 하여, 일부 번호를 알아볼 수 없게 되었습니다.
+당첨 번호 발표 후, 민우는 자신이 구매했던 로또로 당첨이 가능했던 최고 순위와 최저 순위를 알아보고 싶어 졌습니다.
+알아볼 수 없는 번호를 0으로 표기하기로 하고, 민우가 구매한 로또 번호 6개가 44, 1, 0, 0, 31 25라고 가정해보겠습니다.
+당첨 번호 6개가 31, 10, 45, 1, 6, 19라면, 당첨 가능한 최고 순위와 최저 순위의 한 예는 아래와 같습니다.
 
 당첨 번호	31	10	45	1	6	19	결과
 최고 순위 번호	31	0→10	44	1	0→6	25	4개 번호 일치, 3등
@@ -22,7 +24,8 @@
 3등을 만드는 다른 방법들도 존재합니다. 하지만, 2등 이상으로 만드는 것은 불가능합니다.
 알아볼 수 없는 두 개의 번호를 각각 11, 7이라고 가정하면 5등에 당첨될 수 있습니다.
 5등을 만드는 다른 방법들도 존재합니다. 하지만, 6등(낙첨)으로 만드는 것은 불가능합니다.
-민우가 구매한 로또 번호를 담은 배열 lottos, 당첨 번호를 담은 배열 win_nums가 매개변수로 주어집니다. 이때, 당첨 가능한 최고 순위와 최저 순위를 차례대로 배열에 담아서 return 하도록 solution 함수를 완성해주세요.
+민우가 구매한 로또 번호를 담은 배열 lottos, 당첨 번호를 담은 배열 win_nums가 매개변수로 주어집니다.
+이때, 당첨 가능한 최고 순위와 최저 순위를 차례대로 배열에 담아서 return 하도록 solution 함수를 완성해주세요.
 
 제한사항
 lottos는 길이 6인 정수 배열입니다.
@@ -58,6 +61,38 @@ lottos	win_nums	result
 실제로 사용되는 로또 순위의 결정 방식과는 약간 다르지만, 이 문제에서는 지문에 명시된 대로 로또 순위를 결정하도록 합니다.  ↩
 """
 
+
 def solution(lottos, win_nums):
-    answer = []
-    return answer
+    sunwi_dict = {6: 1, 5: 2, 4: 3, 3: 4, 2: 5, 1: 6, 0: 6}
+    zero_cnt = lottos.count(0)
+
+    if zero_cnt == 6:
+        return [1, 6]
+    else:
+        lottos_set = set(lottos)
+        win_nums_set = set(win_nums)
+        iou_count = len(lottos_set & win_nums_set)
+
+        if iou_count == 6:
+            return [1, 1]
+        else:
+            return [sunwi_dict[iou_count + zero_cnt], sunwi_dict[iou_count]]
+
+
+if __name__ == '__main__':
+    quiz_dict_list = [
+        {"lottos": [44, 1, 0, 0, 31, 25], "win_nums": [31, 10, 45, 1, 6, 19], "result": [3, 5]},
+        {"lottos": [0, 0, 0, 0, 0, 0], "win_nums": [38, 19, 20, 40, 15, 25], "result": [1, 6]},
+        {"lottos": [45, 4, 35, 20, 3, 9], "win_nums": [20, 9, 3, 45, 4, 35], "result": [1, 1]},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(lottos=quiz_dict['lottos'], win_nums=quiz_dict['win_nums'])
+
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solutuin", quiz_dict['result'])
+        print("my Solutuin", res)
+        print()
