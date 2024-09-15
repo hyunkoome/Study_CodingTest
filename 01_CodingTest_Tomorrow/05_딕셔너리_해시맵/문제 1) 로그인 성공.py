@@ -39,6 +39,35 @@ db에 아이디는 같지만 패스워드가 다른 계정이 있으므로 "wron
 db에 아이디가 맞는 계정이 없으므로 "fail"을 return합니다.
 """
 
+
 def solution(id_pw, db):
-    answer = ''
-    return answer
+    searching_pw = dict(db).get(id_pw[0])  # not searching: return None
+    if searching_pw is not None:
+        if searching_pw == id_pw[1]:
+            return "login"
+        else:
+            return "wrong pw"
+    else:
+        return "fail"
+
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"id_pw": ["meosseugi", "1234"], "db": [["rardss", "123"], ["yyoom", "1234"], ["meosseugi", "1234"]],
+         "result": "login"},
+        {"id_pw": ["programmer01", "15789"],
+         "db": [["programmer02", "111111"], ["programmer00", "134"], ["programmer01", "1145"]],
+         "result": "wrong pw"},
+        {"id_pw": ["rabbit04", "98761"], "db": [["jaja11", "98761"], ["krong0313", "29440"], ["rabbit00", "111333"]],
+         "result": "fail"},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(id_pw=quiz_dict['id_pw'], db=quiz_dict['db'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solutuin", quiz_dict['result'])
+        print("my Solutuin", res)
+        print()

@@ -33,6 +33,31 @@ s	result
 설명 생략
 """
 
+from collections import defaultdict
+
 def solution(s):
-    answer = []
+    answer = [-1] * len(s)  # [-1, -1, -1, -1, -1, -1]
+    idx = defaultdict(int)
+
+    for i, word in enumerate(s):
+        if word in idx:
+            answer[i] = i - idx[word]
+        idx[word] = i
+
     return answer
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"s": "banana", "result": [-1, -1, -1, 2, 2, 2]},
+        {"s": "foobar", "result": [-1, -1, 1, -1, -1, -1]},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(s=quiz_dict['s'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solutuin", quiz_dict['result'])
+        print("my Solutuin", res)
+        print()

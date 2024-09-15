@@ -58,6 +58,30 @@ s에는 영단어로 바뀐 부분이 없습니다.
 정확성 테스트 : 10초
 """
 
+
 def solution(s):
-    answer = 0
-    return answer
+    numbers_dict = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8,
+                    "nine": 9}
+
+    for k, v in numbers_dict.items():
+        s = s.replace(k, str(v))
+    return int(s)
+
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"s": "one4seveneight", "result": 1478},
+        {"s": "23four5six7", "result": 234567},
+        {"s": "2three45sixseven", "result": 234567},
+        {"s": "123", "result": 123},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(s=quiz_dict['s'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solutuin", quiz_dict['result'])
+        print("my Solutuin", res)
+        print()

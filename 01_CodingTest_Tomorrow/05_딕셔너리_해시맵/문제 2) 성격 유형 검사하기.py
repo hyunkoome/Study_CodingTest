@@ -164,6 +164,36 @@ survey	choices	result
 따라서 "RCJA"를 return 해야 합니다.
 """
 
+from collections import defaultdict
+
 def solution(survey, choices):
     answer = ''
+    res = defaultdict(int)
+
+    for sv, choice in zip(survey, choices):
+        if choice < 4:
+            res[sv[0]] += (4-choice)
+        elif choice > 4:
+            res[sv[1]] += (choice-4)
+
+    for ty1, ty2 in ["RT", "CF", "JM", "AN"]:
+        answer += ty1 if res[ty1] >= res[ty2] else ty2
+
     return answer
+
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"survey": ["AN", "CF", "MJ", "RT", "NA"], "choices": [5, 3, 2, 7, 5], "result": "TCMA"},
+        {"survey": ["TR", "RT", "TR"], "choices": [7, 1, 3], "result": "RCJA"},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(survey=quiz_dict['survey'], choices=quiz_dict['choices'])
+        if res == quiz_dict["result"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solutuin", quiz_dict['result'])
+        print("my Solutuin", res)
+        print()
