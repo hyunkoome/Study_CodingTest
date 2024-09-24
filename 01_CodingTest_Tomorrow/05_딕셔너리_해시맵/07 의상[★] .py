@@ -49,6 +49,34 @@ face에 해당하는 의상이 crow_mask, blue_sunglasses, smoky_makeup이므로
 3. smoky_makeup
 """
 
+from collections import defaultdict
 def solution(clothes):
-    answer = 0
-    return answer
+    # clothes_flattened = [cloth for sub_clothes in clothes for cloth in sub_clothes]
+    # clothes_flattened = list(set(clothes_flattened))
+    clothes_dict = defaultdict(int)
+
+    for cloth_name, cloth_type in clothes:
+        clothes_dict[cloth_type] += 1
+
+    answer = 1
+    for k, v in clothes_dict.items():
+        answer *= (v+1)
+
+    return answer-1
+
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"clothes": [["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]], "return": 5},
+        {"clothes": [["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]], "return": 3},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(clothes=quiz_dict['clothes'])
+        if res == quiz_dict["return"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solution", quiz_dict['return'])
+        print("my Solution", res)
+        print()
