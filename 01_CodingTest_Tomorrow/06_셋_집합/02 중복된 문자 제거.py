@@ -26,23 +26,30 @@ my_string	result
 "We are the world"에서 중복된 문자 "e", " ", "r" 들을 제거한 "We arthwold"을 return합니다.
 """
 
+from collections import defaultdict
+
 def solution(my_string):
+    words = defaultdict(int)
     answer = ''
+    for ch in my_string:
+        if words[ch] == 0:
+            answer += ch
+            words[ch] += 1
     return answer
 
 
 if __name__ == "__main__":
     quiz_dict_list = [
-        {"genres": ["classic", "pop", "classic", "classic", "pop"], "plays": [500, 600, 150, 800, 2500],
-         "return": [4, 1, 3, 0]},
+        {"my_string": "people", "result": "peol"},
+        {"my_string": "We are the world", "result": "We arthwold"},
     ]
 
     for quiz_dict in quiz_dict_list:
-        res = solution(genres=quiz_dict['genres'], plays=quiz_dict['plays'])
-        if res == quiz_dict["return"]:
+        res = solution(my_string=quiz_dict['my_string'])
+        if res == quiz_dict["result"]:
             print("Correct")
         else:
             print("Wrong")
-        print("Solution", quiz_dict['return'])
+        print("Solution", quiz_dict['result'])
         print("my Solution", res)
         print()

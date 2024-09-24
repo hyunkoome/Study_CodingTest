@@ -38,23 +38,31 @@ spell	dic	result
 입출력 예 #3 에서 "moos", "smm", "som"도 "s", "o", "m", "d" 를 조합해 만들 수 있지만 spell의 원소를 모두 사용해야 하기 때문에 정답이 아닙니다.
 """
 
+
 def solution(spell, dic):
-    answer = 0
+    answer = 2
+    for word in dic:
+        if len(spell) == len(word):
+            word_spell = [sp for sp in word]
+            if set(spell) == set(word_spell):
+                return 1
+
     return answer
 
 
 if __name__ == "__main__":
     quiz_dict_list = [
-        {"genres": ["classic", "pop", "classic", "classic", "pop"], "plays": [500, 600, 150, 800, 2500],
-         "return": [4, 1, 3, 0]},
+        {"spell": ["p", "o", "s"], "dic": ["sod", "eocd", "qixm", "adio", "soo"], "result": 2},
+        {"spell": ["z", "d", "x"], "dic": ["def", "dww", "dzx", "loveaw"], "result": 1},
+        {"spell": ["s", "o", "m", "d"], "dic": ["moos", "dzx", "smm", "sunmmo", "som"], "result": 2},
     ]
 
     for quiz_dict in quiz_dict_list:
-        res = solution(genres=quiz_dict['genres'], plays=quiz_dict['plays'])
-        if res == quiz_dict["return"]:
+        res = solution(spell=quiz_dict['spell'], dic=quiz_dict['dic'])
+        if res == quiz_dict["result"]:
             print("Correct")
         else:
             print("Wrong")
-        print("Solution", quiz_dict['return'])
+        print("Solution", quiz_dict['result'])
         print("my Solution", res)
         print()

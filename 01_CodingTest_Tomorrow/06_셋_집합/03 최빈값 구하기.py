@@ -27,24 +27,40 @@ array	result
 입출력 예 #3
 [1]에는 1만 있으므로 최빈값은 1입니다.
 """
-
+from collections import defaultdict
+# from collections import Counter
 def solution(array):
-    answer = 0
-    return answer
+    # array: [1, 2, 3, 3, 3, 4] ==> num_freq: [(3, 3), (1, 1), (2, 1), (4, 1)]
+    num_freq = defaultdict(int)
+    for num in array:
+        num_freq[num] += 1
+    num_freq = sorted(num_freq.items(), key=lambda x: -x[1])
+
+    # freq_array = Counter(array)
+    # most = num_freq[0] # (3, 3)
+
+    if len(num_freq) == 1:
+        return num_freq[0][0]
+
+    if num_freq[0][1] == num_freq[1][1]:  # 최빈 값이 여러개
+        return -1
+
+    return num_freq[0][0]
 
 
 if __name__ == "__main__":
     quiz_dict_list = [
-        {"genres": ["classic", "pop", "classic", "classic", "pop"], "plays": [500, 600, 150, 800, 2500],
-         "return": [4, 1, 3, 0]},
+        {"array": [1, 2, 3, 3, 3, 4], "result": 3},
+        {"array": [1, 1, 2, 2], "result": -1},
+        {"array": [1], "result": 1},
     ]
 
     for quiz_dict in quiz_dict_list:
-        res = solution(genres=quiz_dict['genres'], plays=quiz_dict['plays'])
-        if res == quiz_dict["return"]:
+        res = solution(array=quiz_dict['array'])
+        if res == quiz_dict["result"]:
             print("Correct")
         else:
             print("Wrong")
-        print("Solution", quiz_dict['return'])
+        print("Solution", quiz_dict['result'])
         print("my Solution", res)
         print()
