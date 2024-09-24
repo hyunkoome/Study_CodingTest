@@ -38,6 +38,40 @@ pop 장르는 3,100회 재생되었으며, pop 노래는 다음과 같습니다.
 장르 별로 가장 많이 재생된 노래를 최대 두 개까지 모아 베스트 앨범을 출시하므로 2번 노래는 수록되지 않습니다.
 """
 
+from collections import defaultdict
+
+
 def solution(genres, plays):
+    total_plays_in_genres = defaultdict(int)
+    music = defaultdict(list)
+
+    for idx, (genre, play) in enumerate(zip(genres, plays)):
+        total_plays_in_genres[genre] += play
+        music[genre].append([idx, play])
+
+    total_plays_in_genres_sorted_big2small = dict(
+        sorted(total_plays_in_genres.items(), key=lambda x: x[1], reverse=True))
+
     answer = []
+    for genre, total_plays in total_plays_in_genres_sorted_big2small.items():
+        music[genre].sort(key=lambda x: -x[1])
+        answer.extend([idx for idx, _ in music[genre][:2]])
+
     return answer
+
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"genres": ["classic", "pop", "classic", "classic", "pop"], "plays": [500, 600, 150, 800, 2500],
+         "return": [4, 1, 3, 0]},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(genres=quiz_dict['genres'], plays=quiz_dict['plays'])
+        if res == quiz_dict["return"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solution", quiz_dict['return'])
+        print("my Solution", res)
+        print()
