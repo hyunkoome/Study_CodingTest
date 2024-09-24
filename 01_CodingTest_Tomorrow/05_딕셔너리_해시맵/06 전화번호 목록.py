@@ -34,6 +34,38 @@ phone_book	return
 첫 번째 전화번호, “12”가 두 번째 전화번호 “123”의 접두사입니다. 따라서 답은 false입니다.
 """
 
+from collections import deque
 def solution(phone_book):
     answer = True
+
+    phone_book.sort()
+    phone_book_deque = deque(phone_book)
+    phone = phone_book_deque.popleft()
+
+    while(len(phone_book_deque)):
+        next_book = phone_book_deque.popleft()
+        if phone == next_book[0:len(phone)]:
+            return False
+        else:
+            phone = next_book
+
     return answer
+
+
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"phone_book": ["119", "97674223", "1195524421"], "return": False},
+        {"phone_book": ["123","456","789"], "return": True},
+        {"phone_book": ["12","123","1235","567","88"], "return": False},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(phone_book=quiz_dict['phone_book'])
+        if res == quiz_dict["return"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solution", quiz_dict['return'])
+        print("my Solution", res)
+        print()
