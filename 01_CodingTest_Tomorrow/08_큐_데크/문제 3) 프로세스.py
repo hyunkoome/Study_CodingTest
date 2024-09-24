@@ -40,3 +40,20 @@ priorities	location	return
 def solution(priorities, location):
     answer = 0
     return answer
+
+
+if __name__ == "__main__":
+    quiz_dict_list = [
+        {"genres": ["classic", "pop", "classic", "classic", "pop"], "plays": [500, 600, 150, 800, 2500],
+         "return": [4, 1, 3, 0]},
+    ]
+
+    for quiz_dict in quiz_dict_list:
+        res = solution(genres=quiz_dict['genres'], plays=quiz_dict['plays'])
+        if res == quiz_dict["return"]:
+            print("Correct")
+        else:
+            print("Wrong")
+        print("Solution", quiz_dict['return'])
+        print("my Solution", res)
+        print()
