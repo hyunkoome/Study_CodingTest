@@ -32,19 +32,29 @@ s	skip	index	result
 본문 내용과 일치합니다.
 """
 
+
 def solution(s, skip, index):
     answer = ''
+    for word in s:
+        print(word, ord(word), [chr(w) for w in range(ord(word) + 1, ord(word) + index + 1)])
+
+        not_duplicated_nxt_words = set([chr(w) for w in range(ord(word) + 1, ord(word) + index + 1)]) - set(
+            [w for w in skip])
+        char_idx = ord(word) + index + index - len(not_duplicated_nxt_words)
+
+        if char_idx > 122:
+            char_idx -= 26
+        answer += ''.join(chr(char_idx))
     return answer
 
 
 if __name__ == "__main__":
     quiz_dict_list = [
-        {"genres": ["classic", "pop", "classic", "classic", "pop"], "plays": [500, 600, 150, 800, 2500],
-         "return": [4, 1, 3, 0]},
+        {"s": "aukks", "skip": "wbqd", "index": 5, "return": "happy"},
     ]
 
     for quiz_dict in quiz_dict_list:
-        res = solution(genres=quiz_dict['genres'], plays=quiz_dict['plays'])
+        res = solution(s=quiz_dict["s"], skip=quiz_dict["skip"], index=quiz_dict["index"])
         if res == quiz_dict["return"]:
             print("Correct")
         else:

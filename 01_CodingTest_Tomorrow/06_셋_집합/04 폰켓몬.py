@@ -53,23 +53,32 @@ nums	result
 따라서 최대 고를 수 있는 폰켓몬 종류의 수는 2입니다.
 """
 
+
 def solution(nums):
-    answer = 0
-    return answer
+    nums_len = len(nums)
+    select_nums = nums_len/2
+    nums_set = set(nums)
+
+    if select_nums <= len(nums_set):
+        return select_nums
+
+    # select_nums > len(nums_set)
+    return len(nums_set)
 
 
 if __name__ == "__main__":
     quiz_dict_list = [
-        {"genres": ["classic", "pop", "classic", "classic", "pop"], "plays": [500, 600, 150, 800, 2500],
-         "return": [4, 1, 3, 0]},
+        {"nums": [3, 1, 2, 3], "result": 2},
+        {"nums": [3, 3, 3, 2, 2, 4], "result": 3},
+        {"nums": [3, 3, 3, 2, 2, 2], "result": 2},
     ]
 
     for quiz_dict in quiz_dict_list:
-        res = solution(genres=quiz_dict['genres'], plays=quiz_dict['plays'])
-        if res == quiz_dict["return"]:
+        res = solution(nums=quiz_dict['nums'])
+        if res == quiz_dict["result"]:
             print("Correct")
         else:
             print("Wrong")
-        print("Solution", quiz_dict['return'])
+        print("Solution", quiz_dict['result'])
         print("my Solution", res)
         print()
