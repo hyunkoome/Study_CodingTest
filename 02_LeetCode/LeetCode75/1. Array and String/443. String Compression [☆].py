@@ -40,17 +40,41 @@ Constraints:
 1 <= chars.length <= 2000
 chars[i] is a lowercase English letter, uppercase English letter, digit, or symbol.
 """
+# 강의 해설: https://youtu.be/zxYcE1quwG4?si=ttnMRv-cTtPjjy_9
 
 from typing import List
-from collections import Counter
+
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        if len(chars) == 1:
-            return 1
-        else:
-            char_kinds = Counter(chars)
-            res = [str(n)+str(c) for n, c in char_kinds.items()]
-            return len("".join(res))
+        chars.append("EXIT")
+        """
+        예를 들어, chars = ["a","a","b","b","c","c","c"]라면:
+        원래 코드에서는 c 그룹이 끝까지 반복되더라도 else 조건이 실행되지 않아 마지막 "c3"을 배열에 넣지 못해요.
+        하지만 chars.append("EXIT")를 하면 마지막에 "EXIT"이 들어가면서 else 블록이 트리거되고, 
+        c 그룹이 마무리되어 압축 결과를 배열에 저장하게 됩니다.
+        """
+        index = 0
+        prev_ch = chars[0]
+        cnt = 0
+
+        for idx, ch in enumerate(chars):
+            if prev_ch == ch:
+                cnt += 1
+            else:  # change ch 글자 변할때
+                if cnt == 1:  # cnt 1이면 문자만 추가하고, 숫자는 추가 안함
+                    chars[index] = prev_ch
+                    index += 1
+                else:  # cnt > 1이면 문자 및 숫자 모두 추가
+                    chars[index] = prev_ch
+                    index += 1
+                    for s in str(cnt):
+                        chars[index] = s
+                        index += 1
+
+                prev_ch = ch
+                cnt = 1
+        return index
+
 
 if __name__ == "__main__":
     s = Solution()
