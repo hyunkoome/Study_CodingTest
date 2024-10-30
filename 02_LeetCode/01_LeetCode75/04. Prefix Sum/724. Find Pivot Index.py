@@ -86,7 +86,6 @@ class Solution:
 
         return p_i
 
-    def pivotIndexSolution(self, nums: List[int]) -> int:
 
 
 
